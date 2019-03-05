@@ -6,21 +6,37 @@ pkgrel=1
 pkgdesc='A status monitor for window managers'
 arch=('i686' 'x86_64')
 url='http://tools.suckless.org/slstatus'
-depends=('libx11')
+depends=('libx11' 'alsa-utils' 'xorg-xbacklight')
 makedepends=('git')
 license=('custom:ISC')
+
+_patches=(
+        "seperator-20180305-f4e35fa.diff"
+        )
+
 source=("git+https://git.suckless.org/${pkgname%-git}"
-        "config.h")
+        "config.h"
+        "${_patches[@]}")
+
 md5sums=('SKIP'
-         'ce9e0a0861335b6fbc4ff039bef0c9d5')
+         'b928045f39e259a1fa526e18b1ce8dc1'
+         '24ea93ef665decc0315248f62aa65f44')
 
 pkgver() {
     cd "${pkgname%-git}"
     printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
 }
 
+
 prepare() {
-    cp config.h "${pkgname%-git}/config.h"
+  cd "${pkgname%-git}"
+
+  for patch in "${_patches[@]}"; do
+    echo "Applying patch $(basename $patch)..."
+    patch -Np1 -i "$srcdir/$(basename $patch)"
+  done
+
+  cp $srcdir/config.h config.h
 }
 
 build() {

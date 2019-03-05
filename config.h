@@ -61,10 +61,32 @@ static const char unknown_str[] = "n/a";
  */
 static const struct arg args[] = {
     /* function format          argument */
-    { ram_perc, "%s", NULL },
-    { cpu_perc, "<\x03 %2s%%", NULL },
-    { cpu_freq, "|\x03%4sHz", NULL },
-    { vol_perc, " %s%%\x04>", "/dev/mixer" },
-    { temp, "%s", "/sys/class/thermal/thermal_zone0/temp" },
-    { datetime, "%s", "%d-%m-%Y %T" },
+    /* { seperator, "\x05", NULL }, */
+    { wifi_essid, "\x06  %s", "wlp4s0" },
+    { wifi_perc, " %s%% ", "wlp4s0" },
+    { seperator, "\x07", NULL },
+    { ipv4, "\x08  %s ", "wlp4s0" },
+    { seperator, "\x09", NULL },
+    { netspeed_rx, "\x0A  %s", "wlp4s0" },
+    { netspeed_tx, "  %s ", "wlp4s0" },
+    { seperator, "\x0B", NULL },
+    { battery_perc, "\x0C  %s%%", "BAT0" },
+    { battery_remaining, " %s ", "BAT0"  },
+    { seperator, "\x0D", NULL },
+    /* { run_command, "\x0E  %s%% ", "/bin/sh -c \"xbacklight -get | xargs printf '%.*f\n' 0 \"" }, */
+    /* { seperator, "\x0F", NULL }, */
+    { disk_perc, "\x10 / %s%%", "/" },
+    { disk_perc, "  %s%% ", "/home" },
+    { seperator, "\x11", NULL },
+    /* { run_command, "\x12 蓼 %s%% ", "/bin/sh -c \"amixer get Master | tail -n1 | grep -Po '\\[\\K[^%]*' | head -n1\"" }, */
+    /* { seperator, "\x13", NULL }, */
+    { ram_perc, "\x14  %s%% ", NULL },
+    { seperator, "\x15", NULL },
+    { load_avg, "\x16  %s ", NULL },
+    { seperator, "\x17", NULL },
+    { cpu_perc, "\x18  %s%% ", NULL },
+    { seperator, "\x19", NULL },
+    { temp, "\x1A  %s糖 ", "/sys/class/thermal/thermal_zone0/temp" },
+    { seperator, "\x1B", NULL },
+    { datetime, "\x1C 﨟 %s", "%d-%m-%Y %T" },
 };

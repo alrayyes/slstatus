@@ -1,4 +1,4 @@
-# Maintainer: Ankit R Gadiya <arch@argp.in>
+# Maintainer: Ryan Kes <alrayyes@gmail.com>
 
 pkgname=slstatus-git
 pkgver=r552.b14e039
@@ -6,7 +6,7 @@ pkgrel=1
 pkgdesc='A status monitor for window managers'
 arch=('i686' 'x86_64')
 url='http://tools.suckless.org/slstatus'
-depends=('libx11' 'alsa-utils' 'xorg-xbacklight')
+depends=('libx11')
 makedepends=('git')
 license=('custom:ISC')
 

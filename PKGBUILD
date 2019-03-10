@@ -12,6 +12,7 @@ license=('custom:ISC')
 
 _patches=(
         "seperator-20180305-f4e35fa.diff"
+        "backlight-20180305-85a4a18.diff"
         )
 
 source=("git+https://git.suckless.org/${pkgname%-git}"
@@ -19,8 +20,9 @@ source=("git+https://git.suckless.org/${pkgname%-git}"
         "${_patches[@]}")
 
 md5sums=('SKIP'
-         'b928045f39e259a1fa526e18b1ce8dc1'
-         '24ea93ef665decc0315248f62aa65f44')
+         '9a36cf69d3a7318fffad5535f3e0fed5'
+         '24ea93ef665decc0315248f62aa65f44'
+         '58404d0af1893f560926daf605a79919')
 
 pkgver() {
     cd "${pkgname%-git}"

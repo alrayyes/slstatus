@@ -73,13 +73,13 @@ static const struct arg args[] = {
     { battery_perc, "\x0C  %s%%", "BAT0" },
     { battery_remaining, " %s ", "BAT0"  },
     { seperator, "\x0D", NULL },
-    /* { run_command, "\x0E  %s%% ", "/bin/sh -c \"xbacklight -get | xargs printf '%.*f\n' 0 \"" }, */
-    /* { seperator, "\x0F", NULL }, */
+    { backlight_perc, "\x0E  %s%% ", "intel_backlight" },
+    { seperator, "\x0F", NULL },
     { disk_perc, "\x10 / %s%%", "/" },
     { disk_perc, "  %s%% ", "/home" },
-    { seperator, "\x11", NULL },
-    /* { run_command, "\x12 蓼 %s%% ", "/bin/sh -c \"amixer get Master | tail -n1 | grep -Po '\\[\\K[^%]*' | head -n1\"" }, */
-    /* { seperator, "\x13", NULL }, */
+    //{ seperator, "\x11", NULL },
+    //{ run_command, "\x12 蓼 %s%% ", "/bin/sh -c \"amixer get Master | tail -n1 | grep -Po '\\[\\K[^%]*' | head -n1\"" },
+    { seperator, "\x13", NULL },
     { ram_perc, "\x14  %s%% ", NULL },
     { seperator, "\x15", NULL },
     { load_avg, "\x16  %s ", NULL },

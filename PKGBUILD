@@ -20,7 +20,7 @@ source=("git+https://git.suckless.org/${pkgname%-git}"
         "${_patches[@]}")
 
 md5sums=('SKIP'
-         '0fe1531906ed0d267687f7b425e331ab'
+         'f012506948aac85a43c35d7e09d7483e'
          '24ea93ef665decc0315248f62aa65f44'
          '58404d0af1893f560926daf605a79919')
 

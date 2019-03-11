@@ -78,7 +78,7 @@ static const struct arg args[] = {
     { disk_perc, "\x10 / %s%%", "/" },
     { disk_perc, "  %s%% ", "/home" },
     { seperator, "\x11", NULL },
-    { vol_perc, " \x12 蓼 %s%% ", "/dev/mixer" },
+    { vol_perc, "\x12 蓼 %s%% ", "/dev/mixer" },
     //{ run_command, "\x12 蓼 %s%% ", "/bin/sh -c \"amixer get Master | tail -n1 | grep -Po '\\[\\K[^%]*' | head -n1\"" },
     { seperator, "\x13", NULL },
     { ram_perc, "\x14  %s%% ", NULL },

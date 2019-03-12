@@ -11,8 +11,8 @@ makedepends=('git')
 license=('custom:ISC')
 
 _patches=(
-        "seperator-20180305-f4e35fa.diff"
-        "backlight-20180305-85a4a18.diff"
+        "seperator-20190305-f4e35fa.diff"
+        "backlight-20190305-85a4a18.diff"
         "ipv4-multiple-20190312-5f08c89.diff"
         )
 

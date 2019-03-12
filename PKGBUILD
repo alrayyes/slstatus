@@ -14,6 +14,7 @@ _patches=(
         "seperator-20190305-f4e35fa.diff"
         "backlight-20190305-85a4a18.diff"
         "ipv4-multiple-20190312-5f08c89.diff"
+        "netspeed-multiple-20190312-2ac86e1.diff"
         )
 
 source=("git+https://git.suckless.org/${pkgname%-git}"
@@ -21,10 +22,11 @@ source=("git+https://git.suckless.org/${pkgname%-git}"
         "${_patches[@]}")
 
 md5sums=('SKIP'
-         'b52b327f7fdf0432e798e79b410fc2ed'
+         'ed201d76de309678c72007413f4c7005'
          '24ea93ef665decc0315248f62aa65f44'
          '58404d0af1893f560926daf605a79919'
-         'fc9b31ea31470b6816f1f92c6bc6fa9d')
+         'fc9b31ea31470b6816f1f92c6bc6fa9d'
+         '30f0a42ffc0e4f1e102ad2e3d1afe988')
 
 pkgver() {
     cd "${pkgname%-git}"

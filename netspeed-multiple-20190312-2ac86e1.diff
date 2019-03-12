@@ -1,0 +1,59 @@
+From 2ac86e1582f9eb97d71d11e34104f40e3b95df72 Mon Sep 17 00:00:00 2001
+From: Ryan Kes <alrayyes@gmail.com>
+Date: Tue, 12 Mar 2019 10:14:10 +0100
+Subject: [PATCH] added netspeed_tx_multiple & netspeed_rx_multiple
+
+---
+ components/netspeeds.c | 22 ++++++++++++++++++++++
+ slstatus.h             |  2 ++
+ 2 files changed, 24 insertions(+)
+
+diff --git a/components/netspeeds.c b/components/netspeeds.c
+index 0029177..2ca19c2 100644
+--- a/components/netspeeds.c
++++ b/components/netspeeds.c
+@@ -58,6 +58,28 @@
+ 		return fmt_human((txbytes - oldtxbytes) * 1000 / interval,
+ 		                 1024);
+ 	}
++
++	const char *
++	netspeed_tx_multiple()
++	{
++		if (ipv4("wlp4s0"))
++			return netspeed_tx("wlp4s0");
++		else if (ipv4("enp0s31f6"))
++			return netspeed_tx("enp0s31f6");
++
++		return NULL;
++	}
++
++	const char *
++	netspeed_rx_multiple()
++	{
++		if (ipv4("wlp4s0"))
++			return netspeed_rx("wlp4s0");
++		else if (ipv4("enp0s31f6"))
++			return netspeed_rx("enp0s31f6");
++
++		return NULL;
++	}
+ #elif defined(__OpenBSD__) | defined(__FreeBSD__)
+ 	#include <string.h>
+ 	#include <ifaddrs.h>
+diff --git a/slstatus.h b/slstatus.h
+index 1f754d0..aaaec9e 100644
+--- a/slstatus.h
++++ b/slstatus.h
+@@ -47,6 +47,8 @@ const char *load_avg(void);
+ /* netspeeds */
+ const char *netspeed_rx(const char *interface);
+ const char *netspeed_tx(const char *interface);
++const char *netspeed_rx_multiple();
++const char *netspeed_tx_multiple();
+ 
+ /* num_files */
+ const char *num_files(const char *path);
+-- 
+2.21.0
+

@@ -39,6 +39,8 @@ static const char unknown_str[] = "n/a";
  * load_avg            load average                    NULL
  * netspeed_rx         receive network speed           interface name (wlan0)
  * netspeed_tx         transfer network speed          interface name (wlan0)
+ * netspeed_rx_multiple receive network speed          NULL
+ * netspeed_tx_multiple transfer network speed         NULL
  * num_files           number of files in a directory  path
  *                                                     (/home/foo/Inbox/cur)
  * ram_free            free memory in GB               NULL
@@ -66,10 +68,10 @@ static const struct arg args[] = {
     { wifi_essid, "\x06  %s", "wlp4s0" },
     { wifi_perc, " %s%% ", "wlp4s0" },
     { seperator, "\x07", NULL },
-    { ipv4_multiple, "\x08  %s " },
+    { ipv4_multiple, "\x08  %s ", NULL },
     { seperator, "\x09", NULL },
-    { netspeed_rx, "\x0A  %s", "wlp4s0" },
-    { netspeed_tx, "  %s ", "wlp4s0" },
+    { netspeed_rx_multiple, "\x0A  %s", NULL },
+    { netspeed_tx_multiple, "  %s ", NULL },
     { seperator, "\x0B", NULL },
     { battery_perc, "\x0C  %s%%", "BAT0" },
     { battery_remaining, " %s ", "BAT0"  },

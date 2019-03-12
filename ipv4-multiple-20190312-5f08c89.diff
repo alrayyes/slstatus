@@ -1,0 +1,62 @@
+From 5f08c8987227a88449d0d2432b2e9dc6514540da Mon Sep 17 00:00:00 2001
+From: Ryan Kes <alrayyes@gmail.com>
+Date: Tue, 12 Mar 2019 09:50:35 +0100
+Subject: [PATCH] added ipv4_multiple
+
+---
+ components/ip.c | 13 +++++++++++++
+ config.def.h    |  1 +
+ slstatus.h      |  1 +
+ 3 files changed, 15 insertions(+)
+
+diff --git a/components/ip.c b/components/ip.c
+index 70724eb..7a55d94 100644
+--- a/components/ip.c
++++ b/components/ip.c
+@@ -53,6 +53,19 @@ ipv4(const char *interface)
+ 	return ip(interface, AF_INET);
+ }
+ 
++const char *
++ipv4_multiple()
++{
++	char *output;
++
++	if(output = ipv4("wlp4s0"))
++		return output;
++	else if(output = ipv4("enp0s31f6"))
++		return output;
++
++	return NULL;
++}
++
+ const char *
+ ipv6(const char *interface)
+ {
+diff --git a/config.def.h b/config.def.h
+index d2f7045..665d25f 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -30,6 +30,7 @@ static const char unknown_str[] = "n/a";
+  * gid                 GID of current user             NULL
+  * hostname            hostname                        NULL
+  * ipv4                IPv4 address                    interface name (eth0)
++ * ipv4_multiple       IPv4 address                    NULL
+  * ipv6                IPv6 address                    interface name (eth0)
+  * kernel_release      `uname -r`                      NULL
+  * keyboard_indicators caps/num lock indicators        format string (c?n?)
+diff --git a/slstatus.h b/slstatus.h
+index a46f276..1f754d0 100644
+--- a/slstatus.h
++++ b/slstatus.h
+@@ -29,6 +29,7 @@ const char *hostname(void);
+ 
+ /* ip */
+ const char *ipv4(const char *interface);
++const char *ipv4_multiple(void);
+ const char *ipv6(const char *interface);
+ 
+ /* kernel_release */
+-- 
+2.21.0
+

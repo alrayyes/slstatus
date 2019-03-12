@@ -29,6 +29,7 @@ static const char unknown_str[] = "n/a";
  * gid                 GID of current user             NULL
  * hostname            hostname                        NULL
  * ipv4                IPv4 address                    interface name (eth0)
+ * ipv4_multiple       IPV4 address                    NULL
  * ipv6                IPv6 address                    interface name (eth0)
  * kernel_release      `uname -r`                      NULL
  * keyboard_indicators caps/num lock indicators        format string (c?n?)
@@ -65,7 +66,7 @@ static const struct arg args[] = {
     { wifi_essid, "\x06  %s", "wlp4s0" },
     { wifi_perc, " %s%% ", "wlp4s0" },
     { seperator, "\x07", NULL },
-    { ipv4, "\x08  %s ", "wlp4s0" },
+    { ipv4_multiple, "\x08  %s " },
     { seperator, "\x09", NULL },
     { netspeed_rx, "\x0A  %s", "wlp4s0" },
     { netspeed_tx, "  %s ", "wlp4s0" },

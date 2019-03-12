@@ -1,0 +1,131 @@
+From 619ed9f44fa7d1d263c687adf7b960153cc5c32f Mon Sep 17 00:00:00 2001
+From: Ryan Kes <alrayyes@gmail.com>
+Date: Tue, 12 Mar 2019 12:46:00 +0100
+Subject: [PATCH] Addec combined_network
+
+---
+ Makefile                      |  1 +
+ components/combined_network.c | 84 +++++++++++++++++++++++++++++++++++
+ slstatus.h                    |  3 ++
+ 3 files changed, 88 insertions(+)
+ create mode 100644 components/combined_network.c
+
+diff --git a/Makefile b/Makefile
+index c93032f..5fe36c2 100644
+--- a/Makefile
++++ b/Makefile
+@@ -8,6 +8,7 @@ REQ = util
+ COM =\
+ 	components/backlight\
+ 	components/battery\
++	components/combined_network\
+ 	components/cpu\
+ 	components/datetime\
+ 	components/disk\
+diff --git a/components/combined_network.c b/components/combined_network.c
+new file mode 100644
+index 0000000..5e3087f
+--- /dev/null
++++ b/components/combined_network.c
+@@ -0,0 +1,84 @@
++/* See LICENSE file for copyright and license details. */
++#include <stdio.h>
++#include <string.h>
++
++#include "../util.h"
++#include "../slstatus.h"
++
++#if defined(__linux__)
++	#include <limits.h>
++	#include <stdint.h>
++	#include <unistd.h>
++
++	/**
++	 * Incredibly hacky and nasty, but i'm lazy and don't want to put too much time into this. regular wifi_perc causes havoc because of returning string
++	 */
++	const int *
++	combined_wifi_perc(const char *interface)
++	{
++		int cur;
++		size_t i;
++		char *p, *datastart;
++		char path[PATH_MAX];
++		char status[5];
++		FILE *fp;
++
++		if (esnprintf(path, sizeof(path), "/sys/class/net/%s/operstate",
++		              interface) < 0) {
++			return NULL;
++		}
++		if (!(fp = fopen(path, "r"))) {
++			warn("fopen '%s':", path);
++			return NULL;
++		}
++		p = fgets(status, 5, fp);
++		fclose(fp);
++		if (!p || strcmp(status, "up\n") != 0) {
++			return NULL;
++		}
++
++		if (!(fp = fopen("/proc/net/wireless", "r"))) {
++			warn("fopen '/proc/net/wireless':");
++			return NULL;
++		}
++
++		for (i = 0; i < 3; i++) {
++			if (!(p = fgets(buf, sizeof(buf) - 1, fp)))
++				break;
++		}
++		fclose(fp);
++		if (i < 2 || !p) {
++			return NULL;
++		}
++
++		if (!(datastart = strstr(buf, interface))) {
++			return NULL;
++		}
++
++		datastart = (datastart+(strlen(interface)+1));
++		sscanf(datastart + 1, " %*d   %d  %*d  %*d\t\t  %*d\t   "
++		       "%*d\t\t%*d\t\t %*d\t  %*d\t\t %*d", &cur);
++
++		/* 70 is the max of /proc/net/wireless */
++		return (int)((float)cur / 70 * 100);
++	}
++
++	const char *
++	combined_network()
++	{
++		if (ipv4("wlp4s0"))
++			return bprintf("%s %s %d%% ", "", wifi_essid("wlp4s0"), combined_wifi_perc("wlp4s0"));
++		else if (ipv4("enp0s31f6"))
++			return bprintf(" eth0 ");
++
++		return NULL;
++	}
++
++#else
++	const char *
++		combined_network()
++		{
++			return NULL;
++		}
++
++#endif
+diff --git a/slstatus.h b/slstatus.h
+index aaaec9e..a91b796 100644
+--- a/slstatus.h
++++ b/slstatus.h
+@@ -8,6 +8,9 @@ const char *battery_perc(const char *);
+ const char *battery_state(const char *);
+ const char *battery_remaining(const char *);
+ 
++/* combined netowrk */
++const char *combined_network(void);
++
+ /* cpu */
+ const char *cpu_freq(void);
+ const char *cpu_perc(void);
+-- 
+2.21.0
+

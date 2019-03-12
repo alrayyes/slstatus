@@ -17,7 +17,7 @@ static const char unknown_str[] = "n/a";
  * battery_state       battery charging state          battery name (BAT0)
  *                                                     NULL on OpenBSD
  * battery_remaining   battery remaining HH:MM         battery name (BAT0)
- *                                                     NULL on OpenBSD
+ * combined_network    Combined interface data         NULL
  * cpu_perc            cpu usage in percent            NULL
  * cpu_freq            cpu frequency in MHz            NULL
  * datetime            date and time                   format string (%F %T)
@@ -65,8 +65,9 @@ static const char unknown_str[] = "n/a";
 static const struct arg args[] = {
     /* function format          argument */
     /* { seperator, "\x05", NULL }, */
-    { wifi_essid, "\x06  %s", "wlp4s0" },
-    { wifi_perc, " %s%% ", "wlp4s0" },
+    { combined_network, "\x06 %s", NULL },
+    /* { wifi_essid, "\x06  %s", "wlp4s0" }, */
+    /* { wifi_perc, " %s%% ", "wlp4s0" }, */
     { seperator, "\x07", NULL },
     { ipv4_multiple, "\x08  %s ", NULL },
     { seperator, "\x09", NULL },
@@ -74,7 +75,7 @@ static const struct arg args[] = {
     { netspeed_tx_multiple, "  %s ", NULL },
     { seperator, "\x0B", NULL },
     { battery_perc, "\x0C  %s%%", "BAT0" },
-    { battery_remaining, " %s ", "BAT0"  },
+    { battery_remaining, " %s ", "BAT0" },
     { seperator, "\x0D", NULL },
     { backlight_perc, "\x0E  %s%% ", "intel_backlight" },
     { seperator, "\x0F", NULL },

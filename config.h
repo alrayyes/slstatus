@@ -66,31 +66,29 @@ static const struct arg args[] = {
     /* function format          argument */
     /* { seperator, "\x05", NULL }, */
     { combined_network, "\x06 %s", NULL },
-    /* { wifi_essid, "\x06  %s", "wlp4s0" }, */
-    /* { wifi_perc, " %s%% ", "wlp4s0" }, */
-    { seperator, "\x07", NULL },
+    /*{ seperator, "\x07", NULL }, */
     { ipv4_multiple, "\x08  %s ", NULL },
-    { seperator, "\x09", NULL },
+    /* { seperator, "\x09", NULL }, */
     { netspeed_rx_multiple, "\x0A  %s", NULL },
     { netspeed_tx_multiple, "  %s ", NULL },
-    { seperator, "\x0B", NULL },
+    /* { seperator, "\x0B", NULL }, */
     { battery_perc, "\x0C  %s%%", "BAT0" },
     { battery_remaining, " %s ", "BAT0" },
-    { seperator, "\x0D", NULL },
+    /* { seperator, "\x0D", NULL }, */
     { backlight_perc, "\x0E  %s%% ", "intel_backlight" },
-    { seperator, "\x0F", NULL },
+    /* { seperator, "\x0F", NULL }, */
     { vol_perc, "\x10 蓼 %s%% ", "/dev/mixer" },
-    { seperator, "\x11", NULL },
+    /* { seperator, "\x11", NULL }, */
     { disk_perc, "\x12 / %s%%", "/" },
     { disk_perc, "  %s%% ", "/home" },
-    { seperator, "\x13", NULL },
+    /* { seperator, "\x13", NULL }, */
     { ram_perc, "\x14  %s%% ", NULL },
-    { seperator, "\x15", NULL },
+    /* { seperator, "\x15", NULL }, */
     { load_avg, "\x16  %s ", NULL },
-    { seperator, "\x17", NULL },
+    /* { seperator, "\x17", NULL }, */
     { cpu_perc, "\x18  %s%% ", NULL },
-    { seperator, "\x19", NULL },
+    /*{ seperator, "\x19", NULL }, */
     { temp, "\x1A  %s糖 ", "/sys/class/thermal/thermal_zone0/temp" },
-    { seperator, "\x1B", NULL },
+    /* { seperator, "\x1B", NULL }, */
     { datetime, "\x1C 﨟 %s", "%d-%m-%Y %T" },
 };

@@ -1,4 +1,4 @@
-# My Suckless Terminal Build
+# My Slstatus Build
 
 [Slstatus](https://tools.suckless.org/slstatus) [Arch](https://www.archlinux.org/) package with a few patches installed to keep things nice.
 

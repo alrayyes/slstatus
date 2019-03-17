@@ -84,11 +84,13 @@ static const struct arg args[] = {
     /* { seperator, "\x13", NULL }, */
     { ram_perc, "\x14  %s%% ", NULL },
     /* { seperator, "\x15", NULL }, */
-    { load_avg, "\x16  %s ", NULL },
-    /* { seperator, "\x17", NULL }, */
-    { cpu_perc, "\x18  %s%% ", NULL },
+    { cpu_perc, "\x16  %s%% ", NULL },
+    /* { seperator, "\x17 ", NULL }, */
+    { load_avg, "\x18  %s ", NULL },
     /*{ seperator, "\x19", NULL }, */
     { temp, "\x1A  %s糖 ", "/sys/class/thermal/thermal_zone0/temp" },
     /* { seperator, "\x1B", NULL }, */
-    { datetime, "\x1C 﨟 %s", "%d-%m-%Y %T" },
+    { run_command, "\x1C  %s ", "pacman -Qu | wc -l" },
+    /* { seperator, "\x1D", NULL },*/
+    { datetime, "\x1E 﨟 %s", "%d-%m-%Y %T" },
 };

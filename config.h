@@ -94,5 +94,5 @@ static const struct arg args[] = {
     /* { seperator, "\x1D", NULL }, */
     { run_command, "\x1E  %s ", "notmuch count tag:new" },
     /* { seperator, "\x1F", NULL },*/
-    { datetime, "\x20 﨟 %s", "%d-%m-%Y %T" },
+    { datetime, "\x06 﨟 %s", "%d-%m-%Y %T" },
 };

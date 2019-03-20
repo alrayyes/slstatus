@@ -92,7 +92,7 @@ static const struct arg args[] = {
     /* { seperator, "\x1B", NULL }, */
     { run_command, "\x1C  %s ", "pacman -Qu | wc -l" },
     /* { seperator, "\x1D", NULL }, */
-    { run_command, "\x1E  %s ", "notmuch count +inbox +unread" },
+    { run_command, "\x1E  %s ", "notmuch count tag:unread and tag:inbox" },
     /* { seperator, "\x1F", NULL },*/
     { datetime, "\x06 﨟 %s", "%d-%m-%Y %T" },
 };

@@ -6,7 +6,7 @@ pkgrel=1
 pkgdesc='A status monitor for window managers'
 arch=('i686' 'x86_64')
 url='http://tools.suckless.org/slstatus'
-depends=('libx11')
+depends=('libx11' 'notmuch')
 makedepends=('git')
 license=('custom:ISC')
 

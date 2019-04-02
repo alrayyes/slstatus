@@ -77,7 +77,7 @@ static const struct arg args[] = {
     /* { seperator, "\x0D", NULL }, */
     { backlight_perc, "\x0E  %s%% ", "intel_backlight" },
     /* { seperator, "\x0F", NULL }, */
-    { vol_perc, "\x10 蓼 %s%% ", "/dev/mixer" },
+    { vol_perc, "\x10 蓼 %s ", "Master" },
     /* { seperator, "\x11", NULL }, */
     { disk_perc, "\x12 / %s%%", "/" },
     { disk_perc, "  %s%% ", "/home" },

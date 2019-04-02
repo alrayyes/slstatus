@@ -70,7 +70,7 @@ static const struct arg args[] = {
     { netspeed_rx, "\x0A  %s", "eno1" },
     { netspeed_tx, "  %s ", "eno1" },
     /* { seperator, "\x0F", NULL }, */
-    { vol_perc, "\x10 蓼 %s%% ", "/dev/mixer" },
+    { vol_perc, "\x10 蓼 %s ", "Master" },
     /* { seperator, "\x11", NULL }, */
     { disk_perc, "\x12 / %s%%", "/" },
     { disk_perc, "  %s%% ", "/home" },

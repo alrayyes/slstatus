@@ -1,0 +1,116 @@
+From: Đoàn Trần Công Danh <congdanhqx@gmail.com>
+
+There's a non-posix assignment inside config.mk,
+but it's supported with both gmake and bmake.
+
+    var != shell command
+---
+ components/volume.c | 59 +++++++++++++++++++++++++++++++++++++++++++++
+ config.def.h        |  1 +
+ config.mk           |  3 ++-
+ 3 files changed, 62 insertions(+), 1 deletion(-)
+
+diff --git a/components/volume.c b/components/volume.c
+index 61cec90..eeb3975 100644
+--- a/components/volume.c
++++ b/components/volume.c
+@@ -1,5 +1,6 @@
+ /* See LICENSE file for copyright and license details. */
+ #include <fcntl.h>
++#include <limits.h>
+ #include <stdio.h>
+ #include <string.h>
+ #include <sys/ioctl.h>
+@@ -72,6 +73,64 @@
+ 
+ 		return bprintf("%d", m ? 0 : v * 100 / 255);
+ 	}
++#elif defined(__linux__)
++#include <alsa/asoundlib.h>
++#include <alsa/control.h>
++
++#define SOUND_CARD "default"
++#define MIXER_IDX 0
++
++const char*
++vol_perc(const char *mixer)
++{
++	snd_mixer_t* handle;
++	snd_mixer_elem_t* elem;
++	snd_mixer_selem_id_t* sid;
++	snd_mixer_selem_channel_id_t c;
++
++	int emute, muted = 0;
++	long minv, maxv, elemv, vol = LONG_MIN;
++	const char *result = NULL;
++
++	snd_mixer_selem_id_alloca(&sid);
++
++	//sets simple-mixer index and name
++	snd_mixer_selem_id_set_index(sid, MIXER_IDX);
++	snd_mixer_selem_id_set_name(sid, mixer);
++
++	if ((snd_mixer_open(&handle, 0)) < 0)
++		goto out;
++	if (snd_mixer_attach(handle, SOUND_CARD) < 0 ||
++	    snd_mixer_selem_register(handle, NULL, NULL) < 0 ||
++	    snd_mixer_load(handle) < 0 ||
++	    !(elem = snd_mixer_find_selem(handle, sid)))
++		goto cleanup;
++
++	snd_mixer_selem_get_playback_volume_range(elem, &minv, &maxv);
++
++	if(minv == maxv)
++		goto cleanup;
++
++	for (c = 0; c <= SND_MIXER_SCHN_LAST; ++c)
++		if (snd_mixer_selem_has_playback_channel(elem, c)) {
++			if (!snd_mixer_selem_get_playback_volume(elem, c, &elemv)
++			    && elemv > vol)
++				vol = elemv;
++			if (!muted
++			    && !snd_mixer_selem_get_playback_switch(elem, c, &emute))
++				muted = !emute;
++		}
++	if (minv > vol || maxv < vol)
++		goto cleanup;
++
++	result = bprintf("%d%% [%s]",
++			 (200 * (vol - minv) + maxv - minv) / (maxv - minv) / 2,
++			 muted ? "off" : "on");
++cleanup:
++	snd_mixer_close(handle);
++out:
++	return result;
++}
+ #else
+ 	#include <sys/soundcard.h>
+ 
+diff --git a/config.def.h b/config.def.h
+index e06be66..40f0a28 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -58,6 +58,7 @@ static const char unknown_str[] = "n/a";
+  * uptime              system uptime                   NULL
+  * username            username of current user        NULL
+  * vol_perc            OSS/ALSA volume in percent      mixer file (/dev/mixer)
++ *                                                     mixer name on Linux (Master)
+  * wifi_perc           WiFi signal in percent          interface name (wlan0)
+  * wifi_essid          WiFi ESSID                      interface name (wlan0)
+  */
+diff --git a/config.mk b/config.mk
+index 3b32b7c..6903fe1 100644
+--- a/config.mk
++++ b/config.mk
+@@ -14,7 +14,8 @@ X11LIB = /usr/X11R6/lib
+ CPPFLAGS = -I$(X11INC) -D_DEFAULT_SOURCE
+ CFLAGS   = -std=c99 -pedantic -Wall -Wextra -Os
+ LDFLAGS  = -L$(X11LIB) -s
+-LDLIBS   = -lX11
++ALSALIBS != [ Linux = `uname -s` ] && printf "%s" "-lasound"
++LDLIBS   = -lX11 $(ALSALIBS)
+ 
+ # compiler and linker
+ CC = cc
+-- 
+2.21.0

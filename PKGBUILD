@@ -16,6 +16,7 @@ _patches=(
         "ipv4-multiple-20190312-5f08c89.diff"
         "netspeed-multiple-20190312-2ac86e1.diff"
         "combined_network-20190312-619ed9f.diff"
+        "alsa-20190402-eeb3975.diff"
         )
 
 source=("git+https://git.suckless.org/${pkgname%-git}"
@@ -28,7 +29,8 @@ md5sums=('SKIP'
          '58404d0af1893f560926daf605a79919'
          'fc9b31ea31470b6816f1f92c6bc6fa9d'
          '30f0a42ffc0e4f1e102ad2e3d1afe988'
-         '865b046340744bc08c52170e0be78355')
+         '865b046340744bc08c52170e0be78355'
+         '567fdf2576d647be311827bc8f82c5cd')
 
 pkgver() {
     cd "${pkgname%-git}"

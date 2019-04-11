@@ -83,9 +83,7 @@ static const struct arg args[] = {
     /*{ seperator, "\x19", NULL }, */
     { temp, "\x1A  %s糖 ", "/sys/class/thermal/thermal_zone0/temp" },
     /* { seperator, "\x1B", NULL }, */
-    { run_command, "\x1C  %s ", "pacman -Qu | wc -l" },
-    /* { seperator, "\x1D", NULL }, */
-    { run_command, "\x1E  %s ", "notmuch count tag:unread and tag:inbox" },
-    /* { seperator, "\x1F", NULL },*/
-    { datetime, "\x06 﨟 %s", "%d-%m-%Y %T" },
+    { run_command, "\x1C  %s ", "notmuch count tag:unread and tag:inbox" },
+    /* { seperator, "\x1D", NULL },*/
+    { datetime, "\x1E 﨟 %s", "%d-%m-%Y %T" },
 };

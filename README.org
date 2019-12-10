@@ -1,0 +1,19 @@
+* My Slstatus Build
+  :PROPERTIES:
+  :CUSTOM_ID: my-slstatus-build
+  :END:
+
+[[https://tools.suckless.org/slstatus][Slstatus]] [[https://www.archlinux.org/][Arch]] package with a few patches
+installed to keep things nice.
+
+#+BEGIN_EXAMPLE shell
+  makepkg -si
+#+END_EXAMPLE
+
+** License
+   :PROPERTIES:
+   :CUSTOM_ID: license
+   :END:
+
+This theme is released under the MIT License. For more information read
+the [[LICENSE.org][license]].
